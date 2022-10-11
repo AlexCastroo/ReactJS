@@ -2,40 +2,47 @@
 * EJERCICIO: Modificar un componente clase, replicando su comportamiento con un componente funcional
 */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 
 const Clock = () => {
-  return(
+  const defaultState = {
+    fecha: new Date(),
+    edad: 0,
+    nombre: 'Martín',
+    apellidos: 'San José',
+  };
+
+  const [user, setUser] = useState(defaultState);
+
+  useEffect(() => {
+    const intervalAge = setInterval(() => {
+      actualiceUser();
+    }, 1000);
+    return () => {
+      clearInterval(intervalAge);
+    };
+  });
+
+  const actualiceUser = () => {
+    return setUser({
+      fecha: user.fecha,
+      edad: user.edad + 1,
+      nombre: user.nombre,
+      apellidos: user.apellidos,
+    });
+  };
+  return (
     <div>
-        <div>
-          <h2>
-          Hora Actual:
-          {/*this.state.fecha.toLocaleTimeString()*/}
-          { PropTypes.fecha }
-          </h2>
-          <h3>{PropTypes.nombre} {PropTypes.apellidos}</h3>
-          <h1>Edad: {PropTypes.edad}</h1>
-         </div>
+      <h2>
+        Hora Actual:
+        {user.fecha.toLocaleTimeString()}
+      </h2>
+      <h3>
+        {user.nombre} {user.apellidos}
+      </h3>
+      <h1>Edad: {user.edad}</h1>
     </div>
   );
-
-    PropTypes.state = {
-      fecha: new Date(),
-      nombre: 'Alejandro',
-      apellidos: 'Castro',
-      edad: 24
-    }
-
-}
-
-  componentDidMount(){
-    state.timerID = setInterval (
-      () => this.tick(), 1000
-    );
-  }
-  componentWillUnmount() {
-    clearInterval (state.timerID);
-  }
+};
 
 export default Clock;
