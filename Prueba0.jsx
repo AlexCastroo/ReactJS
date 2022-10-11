@@ -4,7 +4,9 @@
 
 import React, { useState, useEffect } from 'react';
 
+
 const Clock = () => {
+  {/* Generamos manualmente el estado del reloj */}
   const defaultState = {
     fecha: new Date(),
     edad: 0,
@@ -12,17 +14,22 @@ const Clock = () => {
     apellidos: 'San José',
   };
 
+  // Creamos un useState para saber el estado del User
   const [user, setUser] = useState(defaultState);
 
+  
   useEffect(() => {
+    //intervalAge: Se ejecuta la funcion actualizaUSer() cada segundo.
     const intervalAge = setInterval(() => {
       actualiceUser();
     }, 1000);
+    //Devuelve el intervalo eliminado clearInterval(intervalAge)
     return () => {
       clearInterval(intervalAge);
     };
   });
 
+  //Funcion que nos actualizará el estado del usuario
   const actualiceUser = () => {
     return setUser({
       fecha: user.fecha,
